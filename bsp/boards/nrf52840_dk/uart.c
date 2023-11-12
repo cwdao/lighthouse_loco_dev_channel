@@ -8,7 +8,9 @@
 #include "nrf52840.h"
 #include "nrf52840_bitfields.h"
 #include "board_info.h"
-
+#include "stdio.h"
+#include "stdint.h"
+#include "stdarg.h"
 #include "leds.h"
 #include "debugpins.h"
 #include "uart.h"
@@ -177,4 +179,15 @@ kick_scheduler_t uart_rx_isr(void) {
     }
 
     return DO_NOT_KICK_SCHEDULER;
+}
+
+void _print(char *str)
+{
+    while (*str)
+    {
+        NRF_UART0->TXD = *str;
+        //uart_writeByte(uint8_t byteToWrite)
+        str++;
+    }
+    //uart_writeByte(uint8_t byteToWrite)
 }
