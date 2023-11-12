@@ -1,0 +1,84 @@
+<!DOCTYPE CrossStudio_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints">
+  <BreakpointListItem trigger="" line="8" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="../../bsp/chips/ts4231/ts_pulse.h" useHWbreakpoint="false"/>
+  <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
+ </Breakpoints>
+ <ExecutionProfileWindow/>
+ <FrameBufferWindow>
+  <FrameBufferWindow bufferHeight="-1" addressSpace="" addressText="" bufferWidth="-1"/>
+ </FrameBufferWindow>
+ <Memory1>
+  <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="ts4231" sizeText="" addressText=""/>
+ </Memory1>
+ <Memory2>
+  <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="ts4231" sizeText="" addressText=""/>
+ </Memory2>
+ <Memory3>
+  <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="ts4231" sizeText="" addressText=""/>
+ </Memory3>
+ <Memory4>
+  <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="ts4231" sizeText="" addressText=""/>
+ </Memory4>
+ <Project>
+  <ProjectSessionItem path="nrf52840-dk_TS4231"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;01bsp_bmx160"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;01bsp_bmx160;application"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;application"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;bsp"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;bsp;sdk"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;chips_TS4231"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;inc"/>
+  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;nrf_SDK"/>
+ </Project>
+ <Register1>
+  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ts4231" decimalNodes="" octalNodes="" unsignedNodes=""/>
+ </Register1>
+ <Register2>
+  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ts4231" decimalNodes="" octalNodes="" unsignedNodes=""/>
+ </Register2>
+ <Register3>
+  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ts4231" decimalNodes="" octalNodes="" unsignedNodes=""/>
+ </Register3>
+ <Register4>
+  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="ts4231" decimalNodes="" octalNodes="" unsignedNodes=""/>
+ </Register4>
+ <Threads>
+  <ThreadsWindow showLists=""/>
+ </Threads>
+ <TraceWindow>
+  <Trace enabled="Yes"/>
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Twice a Second">
+   <Watchpoint expression="Is_lighthouse" name="Is_lighthouse" radix="-1" linenumber="91" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="Config_result" name="Config_result" radix="-1" linenumber="86" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="readback" name="readback" radix="16" linenumber="185" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="watch_readback" name="watch_readback" radix="-1" linenumber="185" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="Chip_state" name="Chip_state" radix="-1" linenumber="153" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="time0" name="time0" radix="-1" linenumber="111" filename="../../bsp/chips/ts4231/ts4231.c"/>
+   <Watchpoint expression="time0_tmp" name="time0_tmp" radix="16" linenumber="110" filename="../../bsp/chips/ts4231/ts4231.c"/>
+  </Watches>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never"/>
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never"/>
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never"/>
+ </Watch4>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="32" y="113" useTextEdit="1" openedFrom="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/projects/nrf52840_dk_TS4231/ts4231/main_ts4231.c" path="../../bsp/chips/ts4231/ts4231.c" left="0" top="80" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="25" useTextEdit="1" openedFrom="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/bsp/chips/ts4231/ts4231.c" path="../../bsp/chips/ts4231/ts4231.h" left="5" top="14" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="29" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board.c" left="0" selected="1" top="45" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="6" y="75" useTextEdit="1" path="ts4231/main_ts4231.c" left="0" top="63" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="1882" useTextEdit="1" openedFrom="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/bsp/chips/ts4231/ts4231.c" path="../../bsp/boards/nrf52840_dk/sdk/nrf52840.h" left="0" top="1866" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="119" useTextEdit="1" openedFrom="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/projects/nrf52840_dk_TS4231/ts4231/main_ts4231.c" path="../../bsp/boards/nrf52840_dk/sctimer.c" left="0" top="17" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="477" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/radio.c" left="0" top="460" codecName="Default"/>
+ </Files>
+ <EMStudioWindow activeProject="ts4231" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/bsp/chips/ts4231" debugSearchPath="" autoConnectCapabilities="3711"/>
+</session>
