@@ -19,9 +19,9 @@
 
 //=========================== define ==========================================
 
-// E_Pin P(1,0)
-#define TS4231_N1_E_GPIO_PORT 1
-#define TS4231_N1_E_GPIO_PIN 0
+// E_Pin P(1,0)0.3
+#define TS4231_N1_E_GPIO_PORT 0
+#define TS4231_N1_E_GPIO_PIN 3
 // D_Pin P(0,4)
 #define TS4231_N1_D_GPIO_PORT 0
 #define TS4231_N1_D_GPIO_PIN 4
@@ -61,21 +61,23 @@ uint8_t Config_result = 0x66;
 void delay_ms(int16_t times)
 {
     // 计算延时的时钟周期数
-    uint32_t cycles = times * 1000 * (SystemCoreClock / 1000000) / 3;
+    uint32_t start = DWT->CYCCNT;
+    uint32_t cycles = times * (SystemCoreClock / 1000);
     // 使用DWT寄存器进行延时
-    DWT->CYCCNT = 0;
-    while (DWT->CYCCNT < cycles)
-        ;
+    while ((DWT->CYCCNT - start) < cycles)
+    {
+    }
 }
 
 void delay_us(int16_t times)
 {
     // 计算延时的时钟周期数
-    uint32_t cycles = times * (SystemCoreClock / 1000000) / 3;
+    uint32_t start = DWT->CYCCNT;
+    uint32_t cycles = times * (SystemCoreClock / 1000000);
     // 使用DWT寄存器进行延时
-    DWT->CYCCNT = 0;
-    while (DWT->CYCCNT < cycles)
-        ;
+    while ((DWT->CYCCNT - start) < cycles)
+    {
+    }
 }
 
 void ts4231_init()
@@ -108,12 +110,19 @@ void ts4231_init()
             break;
         }
 
-        // while (Config_result != CONFIG_PASS)
-        //{
-        //     Config_result = ts4231_configDevice();
-        // }
+        while (Config_result != CONFIG_PASS)
+        {
+            Config_result = ts4231_configDevice();
+        }
     }
 
+    // test the pin
+    // ts4231_pinMode(TS4231_N1_D_PIN, MODE_OUTPUT);
+    // ts4231_pinMode(TS4231_N1_E_PIN, MODE_OUTPUT);
+    // ts4231_digitalWrite(TS4231_N1_D_PIN, OUTPUT_HIGH);
+    // ts4231_digitalWrite(TS4231_N1_D_PIN, OUTPUT_LOW);
+    // ts4231_digitalWrite(TS4231_N1_E_PIN, OUTPUT_HIGH);
+    // ts4231_digitalWrite(TS4231_N1_E_PIN, OUTPUT_LOW);
     // if( ts4231_configDevice() == 0x04){
     // Config_OK = 1;
     // }
@@ -547,7 +556,11 @@ void ts_nrf_gpio_cfg_input(uint32_t pin_number)
     }
     // direction:input, PUll:float,
     NRF_Px_port->PIN_CNF[nrf_pin_number] =
-        ((uint32_t)GPIO_PIN_CNF_DIR_Input << GPIO_PIN_CNF_DIR_Pos) | ((uint32_t)GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0D1 << GPIO_PIN_CNF_DRIVE_Pos) | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+        ((uint32_t)GPIO_PIN_CNF_DIR_Input << GPIO_PIN_CNF_DIR_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_DRIVE_S0D1 << GPIO_PIN_CNF_DRIVE_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 }
 
 void ts_nrf_gpio_cfg_output(uint32_t pin_number)
@@ -568,9 +581,13 @@ void ts_nrf_gpio_cfg_output(uint32_t pin_number)
         NRF_Px_port = NRF_P1;
         nrf_pin_number = pin_number & 0x1f;
     }
-    // direction:input, PUll:float,
+    // direction:output, PUll:float,
     NRF_Px_port->PIN_CNF[nrf_pin_number] =
-        ((uint32_t)GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) | ((uint32_t)GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0D1 << GPIO_PIN_CNF_DRIVE_Pos) | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+        ((uint32_t)GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
+        ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 }
 
 uint32_t ts_nrf_gpio_read_input(uint32_t pin_number)
