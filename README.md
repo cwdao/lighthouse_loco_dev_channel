@@ -4,7 +4,7 @@ A project based on openwsn, see ts4231 firmware at ./bsp/chips/ts4231
 
 ## IMPORTANT NOTICE
 
-It is not a stable version, if you are interesting in this project, see the stable version at [atomic-hkust-gz/lighthouse-tracking (github.com)](https://github.com/atomic-hkust-gz/lighthouse-tracking).
+It is not a stable version, if you are interested in this project, see the stable version at [atomic-hkust-gz/lighthouse-tracking (github.com)](https://github.com/atomic-hkust-gz/lighthouse-tracking).
 
 ## From OpenWSN
 
