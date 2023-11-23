@@ -133,7 +133,7 @@ void ts4231_init()
         }
     }
 
-    // pulseSetup();
+     pulseSetup();
 }
 
 // essential step, when powering on the sensor.
