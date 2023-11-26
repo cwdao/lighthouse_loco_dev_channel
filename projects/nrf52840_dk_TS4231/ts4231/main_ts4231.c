@@ -77,6 +77,8 @@ int mote_main(void) {
 
     //TS4231 init and cnfigure
     ts4231_init();
+    //wait sensor change to watch satate
+    delay_ms(10);
 
     while (1) {
 
