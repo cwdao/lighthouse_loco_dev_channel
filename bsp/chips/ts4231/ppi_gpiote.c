@@ -17,6 +17,7 @@
 #include "nrf52840.h"
 #include "nrf52840_bitfields.h"
 #include "stdbool.h"
+#include "ts4231.h"
 
 // #include "ts_photosensors.h"
 // #include "ts_pulse.h"
@@ -35,8 +36,6 @@
 
 #define NRF_GPIO_PIN_MAP(port, pin) (((port) << 5) | ((pin)&0x1F))
 
-extern uint32_t TS4231_N1_E_PIN;
-extern uint32_t TS4231_N1_D_PIN;
 //#define TS4231_N1_D_PIN NRF_GPIO_PIN_MAP(TS4231_N1_D_GPIO_PORT, TS4231_N1_D_GPIO_PIN) // Data signal pin P0.04
 
 //// for GPIO mode
@@ -58,6 +57,20 @@ void gpiote_init(void) {
       (GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos) |
       (TS4231_N1_D_PIN << GPIOTE_CONFIG_PSEL_Pos) |
       (GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos);
+
+
+  NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Set << GPIOTE_INTENSET_IN0_Pos;
+  NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN1_Set << GPIOTE_INTENSET_IN1_Pos;
+  NVIC_EnableIRQ(GPIOTE_IRQn);
+}
+
+void GPIOTE_IRQHandler(void) {
+
+  if ((NRF_GPIOTE->EVENTS_IN[0] == 1) && (NRF_GPIOTE->INTENSET & GPIOTE_INTENSET_IN0_Msk)) {
+    NRF_GPIOTE->EVENTS_IN[0] = 0;
+  }
+
+  // else
 }
 
 void ppi_set(void) {

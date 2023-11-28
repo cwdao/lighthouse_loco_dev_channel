@@ -30,8 +30,6 @@
   <ProjectSessionItem path="nrf52840-dk_TS4231;03oos_openwsn"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;application"/>
-  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;bsp"/>
-  <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;bsp;sdk"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;chips_TS4231"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;inc"/>
   <ProjectSessionItem path="nrf52840-dk_TS4231;ts4231;nrf_SDK"/>
@@ -78,19 +76,14 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="30" y="77" useTextEdit="1" path="ts4231/main_ts4231.c" left="0" top="64" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="41" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/projects/nrf52840_dk_TS4231/ts4231/main_ts4231.c" path="../../bsp/chips/ts4231/ts4231.c" left="0" top="14" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="71" useTextEdit="1" path="ts4231/main_ts4231.c" left="0" top="0" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="37" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/projects/nrf52840_dk_TS4231/ts4231/main_ts4231.c" path="../../bsp/chips/ts4231/ts4231.c" left="0" selected="1" top="17" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="10" y="3" useTextEdit="1" openedFrom="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ts4231.c" path="../../bsp/chips/ts4231/ts4231.h" left="0" top="3" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="29" useTextEdit="1" path="../../bsp/boards/nrf52840_dk/board.c" left="0" top="22" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="50" y="36" useTextEdit="1" path="../../bsp/chips/ts4231/pulse_ts4231.c" left="0" top="0" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="40" y="393" useTextEdit="1" path="../../bsp/nrf_SDK/nrf_gpiote.h" left="0" top="372" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../bsp/nrf_SDK/nrf_ppi.h" left="0" top="0" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="23" useTextEdit="1" path="../../bsp/chips/ts4231/timer_ts4231.h" left="0" top="0" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="43" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.h" left="0" top="19" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../bsp/chips/ts4231/timer_ts4231.c" left="0" top="0" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="30" y="2152" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ppi_gpiote.c" path="../../bsp/boards/nrf52840_dk/sdk/nrf52840_bitfields.h" left="0" top="2140" codecName="UTF-8"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="18" y="1761" useTextEdit="1" openedFrom="D:/Work/atomic/lighthouse_position/ts4231_lib_dev/lighthouse_loco_dev_channel/bsp/chips/ts4231/ppi_gpiote.c" path="../../bsp/boards/nrf52840_dk/sdk/nrf52840.h" left="0" top="1735" codecName="UTF-8"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../bsp/chips/ts4231/ppi_gpiote.c" left="0" selected="1" top="0" codecName="UTF-8"/>
  </Files>
  <EMStudioWindow activeProject="ts4231" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/cwdbo/work/TRY_LIGHTHOUSE/dev/openwsn-fw/bsp/chips/ts4231" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

@@ -15,6 +15,26 @@
 #ifndef _TS4231_
 #define _TS4231_
 
+// E_Pin P(1,0)0.3
+#define TS4231_N1_E_GPIO_PORT 0
+#define TS4231_N1_E_GPIO_PIN 3
+// D_Pin P(0,4)
+#define TS4231_N1_D_GPIO_PORT 0
+#define TS4231_N1_D_GPIO_PIN 4
+
+
+#define NRF_GPIO_PIN_MAP(port, pin) (((port) << 5) | ((pin)&0x1F))
+
+#define TS4231_N1_E_PIN NRF_GPIO_PIN_MAP(TS4231_N1_E_GPIO_PORT, TS4231_N1_E_GPIO_PIN) // Clock signal pin P1.00
+#define TS4231_N1_D_PIN NRF_GPIO_PIN_MAP(TS4231_N1_D_GPIO_PORT, TS4231_N1_D_GPIO_PIN) // Data signal pin P0.04
+// for GPIO mode
+#define MODE_INPUT 0
+#define MODE_OUTPUT 1
+// for GPIO output
+#define OUTPUT_LOW 0
+#define OUTPUT_HIGH 1
+
+
 // if BUS_DRV_DLY = 2, it will as slow as arduino uno(ATMEL328P)
 #define BUS_DRV_DLY 1      // delay in microseconds between bus level changes
 #define BUS_CHECK_DLY 500  // delay in microseconds for the checkBus() function
