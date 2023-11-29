@@ -25,7 +25,7 @@
 
 #define NRF_GPIO_PIN_MAP(port, pin) (((port) << 5) | ((pin)&0x1F))
 
-#define TS4231_N1_E_PIN NRF_GPIO_PIN_MAP(TS4231_N1_E_GPIO_PORT, TS4231_N1_E_GPIO_PIN) // Clock signal pin P1.00
+#define TS4231_N1_E_PIN NRF_GPIO_PIN_MAP(TS4231_N1_E_GPIO_PORT, TS4231_N1_E_GPIO_PIN) // Clock signal pin P0.03
 #define TS4231_N1_D_PIN NRF_GPIO_PIN_MAP(TS4231_N1_D_GPIO_PORT, TS4231_N1_D_GPIO_PIN) // Data signal pin P0.04
 // for GPIO mode
 #define MODE_INPUT 0
