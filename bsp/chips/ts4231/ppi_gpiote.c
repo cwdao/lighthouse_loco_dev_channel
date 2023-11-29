@@ -48,15 +48,15 @@
 // we have use E:P(0,3) and D:P(0,4), and config them as input in ts4231.c
 void gpiote_init(void)
 {
-
+//下降沿表示一个波的开始
     NRF_GPIOTE->CONFIG[0] =
         (GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos) |
         (TS4231_N1_E_PIN << GPIOTE_CONFIG_PSEL_Pos) |
         (GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos);
-
+//上升沿表示一个波的结束
     NRF_GPIOTE->CONFIG[1] =
-        (GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos) |
-        (TS4231_N1_D_PIN << GPIOTE_CONFIG_PSEL_Pos) |
+        (GPIOTE_CONFIG_POLARITY_LoToHi << GPIOTE_CONFIG_POLARITY_Pos) |
+        (TS4231_N1_E_PIN << GPIOTE_CONFIG_PSEL_Pos) |
         (GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos);
 
     NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Set << GPIOTE_INTENSET_IN0_Pos;
@@ -76,25 +76,28 @@ void GPIOTE_IRQHandler(void)
 }
 
 //测量角度首先需要从灯光判断开始。ts4231处于watch state 时，E pin常高，当有红外光照射时，E pin 会被拉低。
-//此刻开启两个定时器，第一个用来判断此灯光持续时间，应于第一个上升沿来临时停止。
-//按照规律，第二个下降沿是扫射激光到达，因此第二个定时器应此时停止。第二个定时器的数值就是速度。
+//此刻开启两个定时器，使用第一个TIMER（TIMER3）用来判断此灯光持续时间，应于第一个上升沿来临时停止。
+//按照规律，第二个下降沿是扫射激光到达，因此第二个定时器（TIMER4）应此时停止。第二个定时器的数值就是速度。
 //当然我们也会在中断里判断这个持续时间，以识别出更多的信息并确保可靠。
-1s 16M tick,设置一个最大允许时间，略超过8ms，取10ms ，160，000
+//1s 16M tick,设置一个最大允许时间，略超过8ms，取10ms ，160，000
 
 void ppi_init(void)
 {
     // GPIOTE[0]与E pin(0,3)连接，并通往TIMER3计数任务.
+    //TIME 初始化时已 start, 会持续自增，因此重新开始计时只需使用clear
     NRF_PPI->CH[0].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
-    NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->TASKS_COUNT);
-    // 用于计算两波间隔时间的第二个计数器TIMER3计数任务，同时启动.
-    NRF_PPI->CH[0].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
-    NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER4->TASKS_COUNT);
+    NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->TASKS_CLEAR);
+    // 用于计算两波间隔时间的第二个计数器TIMER4计数任务，同时启动.
+    NRF_PPI->CH[1].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
+    NRF_PPI->CH[1].TEP = (uint32_t)(&NRF_TIMER4->TASKS_CLEAR);
 
-    //按照规律，第二个下降沿表示扫射激光，因此第二个定时器此时停止。
-    NRF_PPI->CH[0].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
-    NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->TASKS_COUNT);
-    // nrf_drv_ppi_channel_assign（ppi_channel2, nrf_drv_gpiote_in_event_addr_get（输入），
-    //  nrf_drv_timer_task_address_get（&timer0，NRF_TIMER_TASK_COUNT））；
+    //在上升沿到来时，捕获计数值至对应CC[n]
+    //也不需要使用stop，因为我们会在下次下降沿到来时clear,因此只需使用capture获得
+    NRF_PPI->CH[2].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[1]);
+    NRF_PPI->CH[2].TEP = (uint32_t)(&NRF_TIMER3->TASKS_CAPTURE[0]);
+//按照规律，第二个下降沿表示扫射激光，因此第二个定时器此时停止。
+    NRF_PPI->CH[3].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
+    NRF_PPI->CH[3].TEP = (uint32_t)(&NRF_TIMER4->TASKS_CAPTURE[0]);
 
     // enable channel 0,1,2,3
     NRF_PPI->CHENSET = 0x0f;
