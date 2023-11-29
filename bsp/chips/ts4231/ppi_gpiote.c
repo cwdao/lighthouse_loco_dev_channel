@@ -58,7 +58,6 @@ void gpiote_init(void) {
       (TS4231_N1_D_PIN << GPIOTE_CONFIG_PSEL_Pos) |
       (GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos);
 
-
   NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Set << GPIOTE_INTENSET_IN0_Pos;
   NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN1_Set << GPIOTE_INTENSET_IN1_Pos;
   NVIC_EnableIRQ(GPIOTE_IRQn);
@@ -73,7 +72,14 @@ void GPIOTE_IRQHandler(void) {
   // else
 }
 
-void ppi_set(void) {
-  NRF_PPI->CH[0].EEP = (uint32_t)(&NRF_TIMER3->EVENTS_COMPARE[0]);
-  NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->EVENTS_COMPARE[0]);
+void ppi_init(void) {
+  // GPIOTE[0]与pin(0,3)连接，并通往TIMER3计数任务
+  NRF_PPI->CH[0].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
+  NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->TASKS_COUNT);
+
+  // nrf_drv_ppi_channel_assign（ppi_channel2, nrf_drv_gpiote_in_event_addr_get（输入），
+  //  nrf_drv_timer_task_address_get（&timer0，NRF_TIMER_TASK_COUNT））；
+
+  // enable channel 0,1,2,3
+  NRF_PPI->CHENSET = 0x0f;
 }
