@@ -76,23 +76,24 @@ void GPIOTE_IRQHandler(void)
 }
 
 //测量角度首先需要从灯光判断开始。ts4231处于watch state 时，E pin常高，当有红外光照射时，E pin 会被拉低。
-//此刻开启两个定时器，使用第一个TIMER（TIMER3）用来判断此灯光持续时间，应于第一个上升沿来临时停止。
-//按照规律，第二个下降沿是扫射激光到达，因此第二个定时器（TIMER4）应此时停止。第二个定时器的数值就是速度。
-//当然我们也会在中断里判断这个持续时间，以识别出更多的信息并确保可靠。
+//此刻开启两个定时器，使用第一个TIMER（TIMER3）用来判断此灯光持续时间，应于第一个上升沿来临时记录数值一次，记为t0。
+//按照规律，第二个下降沿是扫射激光到达，因此第二个定时器（TIMER4）应此时计时。
+//综上，TIMER3在每次边沿都触发，TIMER4只在下降沿触发。
+//当然,更多逻辑需要在GPIO中断里执行，以识别出更多的信息并确保可靠。
 //1s 16M tick,设置一个最大允许时间，略超过8ms，取10ms ，160，000
 
 void ppi_init(void)
 {
     // GPIOTE[0]与E pin(0,3)连接，并通往TIMER3计数任务.
-    //TIME 初始化时已 start, 会持续自增，因此重新开始计时只需使用clear
+    //TIME 初始化时已 start, 会持续自增，因此此处只需要获取当前数值
     NRF_PPI->CH[0].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
-    NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->TASKS_CLEAR);
+    NRF_PPI->CH[0].TEP = (uint32_t)(&NRF_TIMER3->TASKS_CAPTURE[0]);
     // 用于计算两波间隔时间的第二个计数器TIMER4计数任务，同时启动.
     NRF_PPI->CH[1].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[0]);
-    NRF_PPI->CH[1].TEP = (uint32_t)(&NRF_TIMER4->TASKS_CLEAR);
+    NRF_PPI->CH[1].TEP = (uint32_t)(&NRF_TIMER4->TASKS_CAPTURE[0]);
 
     //在上升沿到来时，捕获计数值至对应CC[n]
-    //也不需要使用stop，因为我们会在下次下降沿到来时clear,因此只需使用capture获得
+    //也不需要使用stop，因为32bit的寄存器远远超过几十ms,因此不用考虑溢出问题
     NRF_PPI->CH[2].EEP = (uint32_t)(&NRF_GPIOTE->EVENTS_IN[1]);
     NRF_PPI->CH[2].TEP = (uint32_t)(&NRF_TIMER3->TASKS_CAPTURE[0]);
 //按照规律，第二个下降沿表示扫射激光，因此第二个定时器此时停止。
