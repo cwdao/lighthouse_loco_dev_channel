@@ -26,8 +26,6 @@
 
 //=========================== define ==========================================
 
-
-
 typedef struct
 {
 
@@ -71,43 +69,61 @@ void delay_us(int16_t times) {
   }
 }
 
+int8_t repeat_config = 0;
 // use this function in mote_main() to initialize sensor
 void ts4231_init() {
   ts_nrf_gpio_cfg_input(TS4231_N1_E_PIN);
   ts_nrf_gpio_cfg_input(TS4231_N1_D_PIN);
 
   Is_lighthouse = ts4231_waitForLight(light_timeout);
-  if (Is_lighthouse == 1) {
+  if (Is_lighthouse == 0) {
+    SEGGER_RTT_WriteString(0, "NO lighthouse detected\n");
+
+  } else {
     // this is a segger RTT virtual uart
     SEGGER_RTT_WriteString(0, "lighthouse detected\n");
     Origin_state = ts4231_checkBus();
-    Config_result = ts4231_configDevice();
+
+    // ts4231_goToWatch();
     Current_state = ts4231_checkBus();
 
-    // it is easy to get a WATCH_FAIL, repeat the config process until successful
-    while (Config_result != CONFIG_PASS) {
+    if (Current_state == WATCH_STATE) {
+      SEGGER_RTT_WriteString(0, "already configured\n");
+    } else {
+      Config_result = ts4231_configDevice();
+      // it is easy to get a WATCH_FAIL, repeat the config process until successful
+      while ((Current_state != WATCH_STATE) && (Config_result != CONFIG_PASS) && (repeat_config < 10)) {
 
-      switch (Config_result) {
-      case CONFIG_PASS:
-        SEGGER_RTT_WriteString(0, "config success\n");
-        break;
-      case BUS_FAIL:
-        SEGGER_RTT_WriteString(0, "error:BUS_FAIL\n");
-        break;
-      case VERIFY_FAIL:
-        SEGGER_RTT_WriteString(0, "error:VERIFY_FAIL\n");
-        break;
-      case WATCH_FAIL:
-        SEGGER_RTT_WriteString(0, "error:WATCH_FAIL\n");
-        break;
-      default:
-        SEGGER_RTT_WriteString(0, "Unknown:Program Execution ERROR\n");
-        break;
+        switch (Config_result) {
+        case CONFIG_PASS:
+          SEGGER_RTT_WriteString(0, "config success\n");
+          break;
+        case BUS_FAIL:
+          SEGGER_RTT_WriteString(0, "error:BUS_FAIL\n");
+          break;
+        case VERIFY_FAIL:
+          SEGGER_RTT_WriteString(0, "error:VERIFY_FAIL\n");
+          break;
+        case WATCH_FAIL:
+          SEGGER_RTT_WriteString(0, "error:WATCH_FAIL\n");
+          break;
+        default:
+          SEGGER_RTT_WriteString(0, "Unknown:Program Execution ERROR\n");
+          break;
+        }
+        repeat_config++;
+        Config_result = ts4231_configDevice();
+
+        ts4231_goToWatch();
+        Current_state = ts4231_checkBus();
+        if (Current_state == WATCH_STATE) {
+          SEGGER_RTT_WriteString(0, "config success\n");
+        }
+        delay_ms(5);
       }
     }
   }
-
-  //pulseSetup();
+  // pulseSetup();
 }
 
 // essential step, when powering on the sensor.

@@ -41,7 +41,8 @@
 
 // admin
 
-void ppi_set(void);
+void ppi_init(void);
+void gpiote_init(void);
 //void ts4231_init(void);
 
 //bool ts4231_waitForLight(uint16_t light_timeout);
