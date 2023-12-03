@@ -18,12 +18,6 @@
 #include "nrf52840_bitfields.h"
 #include "stdbool.h"
 
-// #include "ts_photosensors.h"
-// #include "ts_pulse.h"
-
-// NRF_SDK_V17.1, maybe in future
-// #include "nrf_gpio.h"
-
 //=========================== define ==========================================
 
 typedef struct
@@ -51,20 +45,20 @@ uint32_t temp_in = 0x01;
 
 // may replace with RTC in future
 void delay_ms(int16_t times) {
-  // 计算延时的时钟周期数
+  // Calculate the number of clock cycles for the delay
   uint32_t start = DWT->CYCCNT;
   uint32_t cycles = times * (SystemCoreClock / 1000);
-  // 使用DWT寄存器进行延时
+  // Using the DWT register for time delay
   while ((DWT->CYCCNT - start) < cycles) {
   }
 }
 
 // may replace with RTC in future
 void delay_us(int16_t times) {
-  // 计算延时的时钟周期数
+  // Calculate the number of clock cycles for the delay
   uint32_t start = DWT->CYCCNT;
   uint32_t cycles = times * (SystemCoreClock / 1000000);
-  // 使用DWT寄存器进行延时
+  // Using the DWT register for time delay
   while ((DWT->CYCCNT - start) < cycles) {
   }
 }

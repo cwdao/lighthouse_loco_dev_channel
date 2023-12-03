@@ -1,27 +1,26 @@
 /**
-\brief This program shows the use of the "bmx160" bsp module.
-
-Since the bsp modules for different platforms have the same declaration, you
-can use this project with any platform.
-
-This project configure bmx160 and read the gyroscope values in 3 axises.
-Then it sends out the gyro data through uart at interval of SAMPLE_PERIOD.
-
-\author Tengfei Chang <tengfei.chang@gmail.com>, Nov 2021.
-*/
+ * brief ts4231 configuration and localization implementation.
+ * This code implements the use of TS4231 and HTC lighthouse v1 for localization.
+ *
+ * \author Cheng Wang <cwang199@connect.hkust-gz.edu.cn>, Dec 2023.
+ * \Reference to open source project: https://github.com/HiveTracker/firmware
+ * \Reference to QingFeng BBS: http://www.qfv8.com/
+ *
+ * This file is also reference to OpenWSN bmx160 driver: https://github.com/atomic-hkust-gz/openwsn-fw,
+ * \author Tengfei Chang <tengfei.chang@gmail.com>, Nov 2021
+ */
 
 #include "board.h"
 #include "i2c.h"
 #include "leds.h"
+#include "ppi_gpiote.h"
 #include "sctimer.h"
 #include "stdint.h"
 #include "stdio.h"
 #include "string.h"
-#include "uart.h"
-//#include ""
-#include "ppi_gpiote.h"
 #include "timer_ts4231.h"
 #include "ts4231.h"
+#include "uart.h"
 
 //=========================== defines =========================================
 
@@ -80,7 +79,8 @@ int mote_main(void) {
   // TS4231 init and configure
   ts4231_init();
   delay_ms(10);
-  // timer,gpiote和ppi 必须在ts4231初始化后再配置，否则会对其造成影响
+  // timer,gpiote and ppi must be configured after the ts4231 has been initialized,
+  // otherwise it will have an impact on them.
   TIMER_init();
   gpiote_init();
   ppi_init();
@@ -90,37 +90,7 @@ int mote_main(void) {
 
   while (1) {
 
-    //    if (pulseDataIsReady()) { // should be called as often as possible
-    //    sendData();
-    //}
-
-    //// wait for timer to elapse
-    // while (app_vars.uartSendNow==0);
-    // app_vars.uartSendNow = 0;
-
-    // bmx160_read_9dof_data();
-
-    // i=0;
-    // tmp = bmx160_read_gyr_x();
-    // app_vars.uartToSend[i++] = (uint8_t)((tmp>>8) & 0x00ff);
-    // app_vars.uartToSend[i++] = (uint8_t)((tmp>>0) & 0x00ff);
-
-    // tmp = bmx160_read_gyr_y();
-    // app_vars.uartToSend[i++] = (uint8_t)((tmp>>8) & 0x00ff);
-    // app_vars.uartToSend[i++] = (uint8_t)((tmp>>0) & 0x00ff);
-
-    // tmp = bmx160_read_gyr_z();
-    // app_vars.uartToSend[i++] = (uint8_t)((tmp>>8) & 0x00ff);
-    // app_vars.uartToSend[i++] = (uint8_t)((tmp>>0) & 0x00ff);
-
-    // app_vars.uartToSend[i++] = '\r';
-    // app_vars.uartToSend[i++] = '\n';
-
-    //// send string over UART
-    // app_vars.uartDone              = 0;
-    // app_vars.uart_lastTxByteIndex  = 0;
-    // uart_writeByte(app_vars.uartToSend[app_vars.uart_lastTxByteIndex]);
-    // while(app_vars.uartDone==0);
+    //
   }
 }
 
