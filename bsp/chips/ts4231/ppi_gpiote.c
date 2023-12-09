@@ -28,7 +28,6 @@
 
 // we have use E:P(0,3) and D:P(0,4), and config them as input in ts4231.h
 
-
 //=========================== public ==========================================
 
 /**
@@ -72,27 +71,27 @@ void gpiote_init(void) {
  * into t_1_start at the end, which will be used for the subsequent calculation of the interval
  * between the two signals.
  *
- * The difference between the two moments is the duration of the signal, t_opt_pulse, which we 
- * convert to us by dividing it by the number of ticks, and classify it into sync, sweep, 
- * and skip_sync according to the duration (defined in ppi_gpiote.h as type_sync, type_sweep, 
+ * The difference between the two moments is the duration of the signal, t_opt_pulse, which we
+ * convert to us by dividing it by the number of ticks, and classify it into sync, sweep,
+ * and skip_sync according to the duration (defined in ppi_gpiote.h as type_sync, type_sweep,
  * and type_skip_sync, respectively).
- * 
- * Since the sync light of the two base stations alternates, i.e., when base station A transmits 
- * 60-100us of light, base station B will follow with 100-150us of light. We choose to start the 
- * logic from sweep light, which is convenient for us to distinguish the sequence of the two base 
- * stations. In the rising edge interrupt, if we confirm that this light is a sweep, we set 
- * flag_station to 1, so that when the next light comes, it must come from base station A. When 
- * the next light is a skip_sync, we choose to give flag_station +1, so that the sync light after 
- * the skip_sync knows that it is from base station B. In the sync light interrupt, we choose to 
- * give flag_station +1, so that the sync light after the skip_sync knows that it is from base station B. 
- * In the interrupt of the sync light, we represent the base station information with the value of 
- * flag_A_station: according to flag_station == 1 (A),flag_station == 2 (B). Meanwhile, the falling 
+ *
+ * Since the sync light of the two base stations alternates, i.e., when base station A transmits
+ * 60-100us of light, base station B will follow with 100-150us of light. We choose to start the
+ * logic from sweep light, which is convenient for us to distinguish the sequence of the two base
+ * stations. In the rising edge interrupt, if we confirm that this light is a sweep, we set
+ * flag_station to 1, so that when the next light comes, it must come from base station A. When
+ * the next light is a skip_sync, we choose to give flag_station +1, so that the sync light after
+ * the skip_sync knows that it is from base station B. In the sync light interrupt, we choose to
+ * give flag_station +1, so that the sync light after the skip_sync knows that it is from base station B.
+ * In the interrupt of the sync light, we represent the base station information with the value of
+ * flag_A_station: according to flag_station == 1 (A),flag_station == 2 (B). Meanwhile, the falling
  * edge moment of sync is stored separately to t_d_start .
- * 
- * Finally, the sweep appears, and we choose to update the data to A_X A_Y or B_X B_Y depending on 
- * the value of flag_A_station. loca_duration is the difference between the previously stored t_d_start 
+ *
+ * Finally, the sweep appears, and we choose to update the data to A_X A_Y or B_X B_Y depending on
+ * the value of flag_A_station. loca_duration is the difference between the previously stored t_d_start
  * and the falling edge moment of the sweep, t_0_start.
- * 
+ *
  * This logic works fine in the presence of 1 or 2 lighthouses.
  */
 uint32_t t_0_start = 0x00;
@@ -151,14 +150,14 @@ void GPIOTE_IRQHandler(void) {
       switch (flag_light_type) {
       // More than 50us then it must be sync, then the next falling edge interrupt will need to calculate position
       case type_sync:
-        //If sync, distance measurement starts from this time.
+        // If sync, distance measurement starts from this time.
         t_d_start = t_0_start;
-        //It is only based on sweep that you can determine whether you are currently in A or B.
+        // It is only based on sweep that you can determine whether you are currently in A or B.
         if (flag_station >= 1) {
           //  Where an even ten digit number is the X-axis, an odd number is the Y-axis.
           ((t_opt_pulse_us / 10) % 2 == 0) ? (loca_x = 1) : (loca_x = 0);
         }
-        //Determine whether this is an A or B base station based on the value of flag_station
+        // Determine whether this is an A or B base station based on the value of flag_station
         switch (flag_station) {
         case 0:
           break;
@@ -173,7 +172,6 @@ void GPIOTE_IRQHandler(void) {
         }
         break;
       case type_sweep:
-        // cal_distance = 0;
         //  0 ：NULL,1: next is A,2:next is B
         flag_station = 1;
 
@@ -205,10 +203,9 @@ void GPIOTE_IRQHandler(void) {
 
         break;
       case type_skip_sync:
-        // cal_distance = 0;
         if (flag_station >= 1) {
           flag_station++;
-          //Exceeding 2 means that a sweep was not seen, which often happens.
+          // Exceeding 2 means that a sweep was not seen, which often happens.
           if (flag_station >= 3) {
             flag_station--;
           }
